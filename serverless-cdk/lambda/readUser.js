@@ -7,7 +7,6 @@ AWS.config.update({region: region})
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = (event, context, callback) => {
-    const TableName = event.queryStringParameters.table;
     const Key = {};
     Key['name'] = event.queryStringParameters.name;
 

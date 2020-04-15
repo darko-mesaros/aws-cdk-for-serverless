@@ -8,7 +8,6 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = (event, context, callback) => {
 
-    const TableName = event.queryStringParameters.table;
     const Item = {};
     Item['name'] = event.queryStringParameters.name;
     Item['location'] = event.queryStringParameters.location;
