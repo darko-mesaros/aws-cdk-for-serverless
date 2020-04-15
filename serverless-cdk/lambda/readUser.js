@@ -1,0 +1,30 @@
+const AWS = require('aws-sdk');
+
+var tableName = process.env.TABLE_NAME
+var region = process.env.AWS_REGION
+AWS.config.update({region: region})
+
+const dynamo = new AWS.DynamoDB.DocumentClient();
+
+exports.handler = (event, context, callback) => {
+    const TableName = event.queryStringParameters.table;
+    const Key = {};
+    Key['name'] = event.queryStringParameters.name;
+
+    dynamo.get({tableName, Key}, function(err, data) {
+        if (err) {
+            callback(err, null);
+        } else {
+            var response = {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Methods': 'GET,POST,OPTIONS'
+                },
+                body: JSON.stringify(data.Item),
+                isBase64Encoded: false
+            };
+            callback(null, response);
+        }
+    });
+};
