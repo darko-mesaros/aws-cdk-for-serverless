@@ -64,3 +64,10 @@ npm install @aws-cdk/aws-apigateway
 npm install @aws-cdk/aws-dynamodb
 ```
 
+## If you are re-using this repo
+
+After cloning make sure to run the following command:
+```
+npm install
+```
+

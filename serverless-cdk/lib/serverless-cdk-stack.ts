@@ -16,11 +16,13 @@ export class ServerlessCdkStack extends cdk.Stack {
       // Defining the prod or no prod
       if (props && props.prod) { // prod
         var dynamoDbReadWrite = 200;
+        var apiGatewayName = 'PROD_cdk_api';
 				var tableName = 'PROD_cdk_users';
 				var lambdaVars = { 'TABLE_NAME': tableName};
 				var concurrency = 100;
       } else { // not prod 
 				var tableName = 'STAGING_cdk_users';
+        var apiGatewayName = 'STAGING_cdk_api';
         var dynamoDbReadWrite = 5;
 				var lambdaVars = { 'TABLE_NAME': tableName};
 				var concurrency = 5;
@@ -38,7 +40,7 @@ export class ServerlessCdkStack extends cdk.Stack {
 
 
 			// --- our first api gateway --- 
-			const api = new apigw.RestApi(this, 'streamAPIGateway');
+			const api = new apigw.RestApi(this, apiGatewayName);
 
 			// --- greeter lambda ---
 			const welcomeLambda = new lambda.Function(this, 'HelloHandler', {

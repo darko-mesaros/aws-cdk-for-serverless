@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 
-var tableName = process.env.TABLE_NAME
+var TableName = process.env.TABLE_NAME
 var region = process.env.AWS_REGION
 AWS.config.update({region: region})
 
@@ -13,7 +13,7 @@ exports.handler = (event, context, callback) => {
     Item['location'] = event.queryStringParameters.location;
     Item['age'] = event.queryStringParameters.age;
     
-    dynamo.put({tableName, Item}, function (err, data) {
+    dynamo.put({TableName, Item}, function (err, data) {
         if (err) {
             console.log('error', err);
             callback(err, null);
